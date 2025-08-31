@@ -7,7 +7,7 @@ This repository contains a full-stack application with a React frontend, a Lumen
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Running the Applications
+## Running the Application
 
 1. **Clone the repository:**
    ```sh
