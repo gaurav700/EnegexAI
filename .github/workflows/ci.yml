@@ -47,7 +47,9 @@ jobs:
 
       - name: Install PHP dependencies
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
-        run: composer install --no-interaction --prefer-dist
+        run: |
+          composer install --no-interaction --prefer-dist
+          composer require illuminate/redis tymon/jwt-auth --no-interaction --prefer-dist
 
       - name: Setup environment
         run: cp ./energeX-ai-test/lumen-api/lumen-app/.env.testing ./energeX-ai-test/lumen-api/lumen-app/.env
