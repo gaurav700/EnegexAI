@@ -50,6 +50,10 @@ jobs:
         run: | 
           composer install --no-interaction --prefer-dist
           composer require illuminate/redis tymon/jwt-auth --no-interaction --prefer-dist
+      - name: Setup environment
+        run: |
+          cp lumen-api/lumen-app/.env.testing lumen-api/lumen-app/.env
+
 
       - name: Run Lumen PHPUnit tests
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
