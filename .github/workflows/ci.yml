@@ -50,19 +50,6 @@ jobs:
       - name: Setup environment
         run: cp ./energeX-ai-test/lumen-api/lumen-app/.env.testing ./energeX-ai-test/lumen-api/lumen-app/.env
         
-      - name: Wait for services
-        run: |
-          # Wait for MySQL to be ready
-          until mysqladmin ping -h 127.0.0.1 -P 3306 -uroot -proot --silent; do
-            echo "Waiting for MySQL..."
-            sleep 2
-          done
-          # Wait for Redis to be ready
-          until redis-cli -h 127.0.0.1 -p 6379 ping; do
-            echo "Waiting for Redis..."
-            sleep 2
-          done
-          
       - name: Run Lumen PHPUnit tests
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
         env:
