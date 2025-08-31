@@ -64,7 +64,7 @@ jobs:
           QUEUE_CONNECTION: sync
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
-        run: php artisan migrate:fresh --seed && ./vendor/bin/phpunit --testdox
+        run: php artisan migrate:fresh --seed --force && ./vendor/bin/phpunit --testdox
 
       # ---- Node/Cache tests ----
       - name: Set up Node.js
