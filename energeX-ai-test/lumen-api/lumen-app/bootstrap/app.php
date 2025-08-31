@@ -105,7 +105,10 @@ $app->middleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Illuminate\Database\MigrationServiceProvider::class);
-$app->register(Illuminate\Redis\RedisServiceProvider::class);
+if (env('APP_ENV') !== 'testing') {
+    $app->register(Illuminate\Redis\RedisServiceProvider::class);
+}
+
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Illuminate\Auth\AuthServiceProvider::class);
 
