@@ -75,10 +75,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
+      
       - name: Install Node dependencies
         working-directory: ./energeX-ai-test/node-cache
         run: npm install
+
+      - name: Run DB migrations (from Lumen API)
+        working-directory: ./energeX-ai-test/lumen-api/lumen-app
+        run: php artisan migrate:fresh --seed --force
 
       - name: Run Node Jest tests
         working-directory: ./energeX-ai-test/node-cache
