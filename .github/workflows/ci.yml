@@ -75,6 +75,21 @@ jobs:
         working-directory: ./energeX-ai-test/node-cache
         run: npm install
         
+      - name: Ensure database is ready for Node tests
+        working-directory: ./energeX-ai-test/lumen-api/lumen-app
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: energeX_test
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: |
+          # Run migrations again to ensure tables exist for Node tests
+          php artisan migrate:fresh --seed --force
+          # Verify posts table exists
+          mysql -h 127.0.0.1 -P 3306 -uroot -proot -e "USE energeX_test; SHOW TABLES;" || echo "Tables verification failed"
+          
       - name: Run Node Jest tests
         working-directory: ./energeX-ai-test/node-cache
         env:
