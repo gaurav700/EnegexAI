@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     env_file:
-      - ./lumen-api/lumen-app/.env
+      - ./lumen-api/lumen-app/.env.docker
     depends_on:
       mysql:
         condition: service_healthy
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     working_dir: /usr/src/app
     env_file:
-      - ./node-cache/.env
+      - ./node-cache/.env.docker
     ports:
       - "5000:5000"
     depends_on:
