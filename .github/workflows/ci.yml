@@ -82,6 +82,13 @@ jobs:
 
       - name: Run Node Jest tests
         working-directory: ./energeX-ai-test/node-cache
+        env:
+          DB_HOST: 127.0.0.1
+          DB_USER: root
+          DB_PASS: root
+          DB_NAME: energeX_test
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
         run: npm test -- --detectOpenHandles --forceExit
 
       # ---- Frontend Build Check ----
