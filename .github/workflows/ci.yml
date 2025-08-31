@@ -9,77 +9,59 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     services:
       mysql:
         image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: energeX_test
-        ports:
-          - 3306:3306
+        ports: ['3306:3306']
         options: >-
           --health-cmd="mysqladmin ping -h localhost -uroot -proot"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+          --health-interval=10s --health-timeout=5s --health-retries=5
 
       redis:
         image: redis:6
-        ports:
-          - 6379:6379
+        ports: ['6379:6379']
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="redis-cli ping"
+          --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # -------------------
-      # LUMEN TESTS
-      # -------------------
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: '8.3'
           extensions: mbstring, pdo_mysql, redis
 
-      - name: Install Composer dependencies
-        working-directory: ./lumen-api/lumen-app
-        run: |
-          composer install --no-interaction --prefer-dist
-          cp .env.example .env || true
-          php artisan jwt:secret --force
-          php artisan migrate:fresh --seed --force
+      - name: Install PHP deps
+        working-directory: ./energeX-ai-test/lumen-api/lumen-app   # 👈 FIXED PATH
+        run: composer install --no-interaction --prefer-dist
 
-      - name: Run PHPUnit tests
-        working-directory: ./lumen-api/lumen-app
-        run: vendor/bin/phpunit --testdox
+      - name: Run PHP tests
+        working-directory: ./energeX-ai-test/lumen-api/lumen-app   # 👈 FIXED PATH
+        run: ./vendor/bin/phpunit --testdox
 
-      # -------------------
-      # NODE TESTS
-      # -------------------
-      - name: Set up Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install Node dependencies
-        working-directory: ./node-cache
+      - name: Install Node deps
+        working-directory: ./energeX-ai-test/node-cache   # 👈 FIXED PATH
         run: npm install
 
-      - name: Run Jest tests
-        working-directory: ./node-cache
-        run: npm test -- --detectOpenHandles
+      - name: Run Node tests
+        working-directory: ./energeX-ai-test/node-cache   # 👈 FIXED PATH
+        run: npm test
 
       # -------------------
       # FRONTEND BUILD (Optional)
       # -------------------
       - name: Build Frontend
-        working-directory: ./frontend/energeXAI-Frontend
+        working-directory: ./energeX-ai-test/frontend/energeXAI-Frontend
         run: |
           npm install
           npm run build
