@@ -11,7 +11,7 @@ This repository contains a full-stack application with a React frontend, a Lumen
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/gaurav700/EnegexAI.git
    cd energeX-ai-test
    ```
 
@@ -31,29 +31,6 @@ This repository contains a full-stack application with a React frontend, a Lumen
    - Frontend: [http://localhost:3000](http://localhost:3000)
    - API: [http://localhost:8000](http://localhost:8000)
 
-## Running Tests
-
-- **Lumen API:**  
-  Inside the `lumen-api/lumen-app` container:
-  ```sh
-  docker-compose exec lumen-app vendor/bin/phpunit
-  ```
-
-- **Node.js Cache:**  
-  Inside the `node-cache` container:
-  ```sh
-  docker-compose exec node-cache npm test
-  ```
-
-## Environment Variables
-
-- Frontend: See `frontend/energexAI-Frontend/.env.docker`
-- Backend: See `lumen-api/lumen-app/.env`
-- Node Cache: See `node-cache/.env`
-
-## Database Initialization
-
-- MySQL is initialized using the script in `mysql-init/init.sql`.
 
 ## Stopping the Application
 

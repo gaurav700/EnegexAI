@@ -82,7 +82,7 @@ services:
     working_dir: /var/www
     env_file:
       - ./lumen-api/lumen-app/.env.testing
-    command: ["./vendor/bin/phpunit", "--testdox"]
+    command: sh -c "php artisan migrate:fresh --seed --force && ./vendor/bin/phpunit --testdox"
 
   node-tests:
     build:
@@ -90,11 +90,11 @@ services:
       target: test   # 👈 uses the "test" stage from Dockerfile
     working_dir: /usr/src/app
     env_file:
-      - ./node-cache/.env
+      - ./node-cache/.env.test
     depends_on:
       lumen-app:
         condition: service_started
-    command: sh -c "sleep 10 && npm test"
+    command: sh -c "npm test"
 
 volumes:
   dbdata:
