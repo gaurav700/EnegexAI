@@ -49,7 +49,7 @@ jobs:
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
         run: | 
           composer install --no-interaction --prefer-dist
-          composer require illuminate/redis --no-interaction --prefer-dist
+          composer require illuminate/redis tymon/jwt-auth --no-interaction --prefer-dist
 
       - name: Run Lumen PHPUnit tests
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
