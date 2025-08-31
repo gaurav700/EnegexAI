@@ -11,7 +11,7 @@ This repository contains a full-stack application with a React frontend, a Lumen
 
 1. **Clone the repository:**
    ```sh
-   git clone [<your-repo-url>](https://github.com/gaurav700/EnegexAI.git)
+   git clone https://github.com/gaurav700/EnegexAI.git
    cd energeX-ai-test
    ```
 
