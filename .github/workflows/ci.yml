@@ -47,13 +47,10 @@ jobs:
 
       - name: Install PHP dependencies
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
-        run: | 
-          composer install --no-interaction --prefer-dist
-          composer require illuminate/redis tymon/jwt-auth --no-interaction --prefer-dist
-      - name: Setup environment
-        run: |
-          cp ./energeX-ai-test/lumen-api/lumen-app/.env.testing ./energeX-ai-test/lumen-api/lumen-app/.env
+        run: composer install --no-interaction --prefer-dist
 
+      - name: Setup environment
+        run: cp ./energeX-ai-test/lumen-api/lumen-app/.env.testing ./energeX-ai-test/lumen-api/lumen-app/.env
 
       - name: Run Lumen PHPUnit tests
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
@@ -75,14 +72,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      
+
       - name: Install Node dependencies
         working-directory: ./energeX-ai-test/node-cache
         run: npm install
 
       - name: Run DB migrations (from Lumen API)
         working-directory: ./energeX-ai-test/lumen-api/lumen-app
-        run: php artisan migrate:fresh --seed --force
+        run: |
+          php artisan migrate:fresh --seed --force
+          sleep 5   # wait for DB to be ready
 
       - name: Run Node Jest tests
         working-directory: ./energeX-ai-test/node-cache
